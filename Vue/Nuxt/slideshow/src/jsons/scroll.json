@@ -1,0 +1,19 @@
+{
+    "json": [
+        {
+            "title": "Front-end web development has become astoundingly complex. If you٧ve never used a modern JavaScript framework, building your first app that just displays ٪Hello٫ can take a whole week! That might sound ridiculous, but most frameworks assume knowledge of the terminal, advanced JavaScript, and tools such as the Node Package Manager (NPM), Babel, Webpack, and sometimes more."
+        },
+        {
+            "title": "Vue, refreshingly, doesn’t assume. We call it the ٪progressive٫ JavaScript framework because it scales down as well as it scales up. If your app is simple, you can use Vue just like jQuery - by dropping in a <script>tag. But as your skills and needs grow more advanced, Vue grows with you to make you more powerful and productive."
+        },
+        {
+            "title": "Hassan provides a catalyst for that growth in this book. Through project-driven learning, he٧ll guide you from the simplest examples through the necessary skills for large-scale, enterprise applications. Along the way, you٧ll learn not only how to solve a variety of problems with Vue, but also the concepts and tools that have become industry standards – no matter what framework you use. Welcome to the community, have fun, and enjoy the Vue!"
+        },
+        {
+            "title": "This book aims to be the single most useful resource on learning Vue.js. By the time you٧re done reading this book, you (and your team) will have everything you need to build reliable, powerful Vue applications."
+        },
+        {
+            "title": "Vue is built on the premise of simplicity by being designed from the ground up to be incrementally adoptable. After the first few chapters, you٧ll have a solid understanding of Vue٧s fundamentals and will be able to build a wide array of rich, interactive web apps with the framework."
+        }
+    ]
+}
