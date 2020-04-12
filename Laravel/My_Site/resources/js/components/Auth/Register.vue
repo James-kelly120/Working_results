@@ -14,6 +14,10 @@
                         <div class="col-md-6">
                             <input v-model="name" type="text" class="form-control" required />
                         </div>
+
+                        <span v-if="errors.name.status" class="invalid-feedback" role="alert">
+                            <strong>{{ this.errors.name.message }}</strong>
+                        </span>
                     </div>
 
                     <!-- Email -->
@@ -23,6 +27,10 @@
                         <div class="col-md-6">
                             <input v-model="email" type="text" class="form-control" required />
                         </div>
+
+                        <span v-if="errors.email.status" class="invalid-feedback" role="alert">
+                            <strong>{{ this.errors.email.message }}</strong>
+                        </span>
                     </div>
 
                     <!-- Password -->
@@ -32,6 +40,10 @@
                         <div class="col-md-6">
                             <input v-model="password" type="password" class="form-control" required />
                         </div>
+
+                        <span v-if="errors.password.status" class="invalid-feedback" role="alert">
+                            <strong>{{ this.errors.password.message }}</strong>
+                        </span>
                     </div>
 
                     <!-- Password Confirm -->
@@ -41,6 +53,9 @@
                         <div class="col-md-6">
                             <input v-model="confirm" type="password" class="form-control" required />
                         </div>
+                        <span v-if="errors.password.status" class="invalid-feedback" role="alert">
+                            <strong>{{ this.errors.password.message }}</strong>
+                        </span>
                     </div>
 
                     <!-- Register Button -->
@@ -60,7 +75,20 @@
         name: 'register',
         data () {
             return {
-                errors: null,
+                errors: {
+                    password: {
+                        status: false,
+                        message: 'password errors'
+                    },
+                    name: {
+                        status: false,
+                        message: ''
+                    },
+                    email: {
+                        status: false,
+                        message: ''
+                    }
+                },
                 name: '',
                 email: '',
                 password: '',
@@ -69,23 +97,63 @@
         },
         methods: {
             register: function () {
-                let data = {
+                if (this.password !== this.confirm) {
+                    console.log('password');
+                    this.errors.password.status = true;
+                    this.errors.password.message = "The password doesn't match";
+                } else if (this.password.length <= 7) {
+                    console.log('length');
+                    this.errors.password.status = true;
+                    this.errors.password.message = "The password minimal is 8 charactor";
+                } else {
+                    let data = {
                     name: this.name,
                     email: this.email,
                     password: this.password,
-                    confirm: this.confirm
-                };
-                axios.post('/signup', data)
+                    password_confirmation: this.password
+                    };
+                    
+                    axios.post('/signup', data)
                     .then(response => {
-                        // console.log('response', response);
+                        if ((typeof response.data) === 'string') {
+                            alert('success');
+                        } else {
+                            Object.keys(response.data).map(value => {
+                                console.log('value', response.data[value]);
+                                this.errors[value].status = true;
+                                this.errors[value].message = response.data[value][0];
+                            });
+                            console.log('errors', this.errors);
+                        }
                     })
                     .catch(err => {
                         // if (err.response.status == 401) {
                         //     window.location = '/login';
                         // }
-                        // console.log('err', err);
-                    });
+                        console.log('err', err);
+                    });    
+                }
+            }
+        },
+        watch: {
+            name: function () {
+                this.errors.name.status = false;
+            },
+            email: function () {
+                this.errors.email.status = false;
+            },
+            password: function () {
+                this.errors.password.status = false;
+            },
+            confirm: function () {
+                this.errors.password.status = false;
             }
         }
     };
 </script>
+
+<style>
+.form-group span {
+    display: block !important;
+}
+</style>
